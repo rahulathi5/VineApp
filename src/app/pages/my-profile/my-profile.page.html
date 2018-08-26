@@ -1,0 +1,68 @@
+<ion-header class="header-vine">
+  <ion-toolbar>
+    <ion-menu-button></ion-menu-button>
+    <ion-title>My Profile</ion-title>
+  </ion-toolbar>
+</ion-header>
+<ion-content class="content-bg">
+  <ion-grid no-padding>
+    <ion-row>
+      <ion-col no-padding>
+        <!-- the below div will contain the profile pic of the user -->
+        <div class="profile-pic-wrap">
+          <div class="img-overlay" *ngIf="userData && userData.photoURL">
+            <img [src]="userData.photoURL" alt="Profile Image" />
+          </div>
+          <div class="img-overlay" *ngIf="userData && !userData.photoURL">
+            <span class="fa fa-upload fa-2x" margin-top></span>
+            <ion-input type="file" accept="image/*" id="upload" class="file-input"></ion-input>
+            <p class="upload-profile-pic-txt">Upload Profile Pic</p>
+          </div>
+        </div>
+        <!-- profile-pic-wrap -->
+      </ion-col>
+    </ion-row>
+    <ion-row>
+      <ion-col size="10" offset="1" size-sm="8" offset-sm="2" size-md="6" offset-md="3" *ngIf="userData">
+        <!-- registration form -->
+        <form #signupForm="ngForm">
+          <ion-list class="registration-form-wrap">
+            <div class="input-wrapper">
+              <ion-item class="item-has-focus">
+                <ion-label position="floating">Name</ion-label>
+              </ion-item>
+              <span>{{userData.name}}</span>
+            </div>
+            <div class="input-wrapper">
+              <ion-item class="item-has-focus">
+                <ion-label position="floating">Email</ion-label>
+              </ion-item>
+              <span>{{userData.email}}</span>
+            </div>
+            <div class="input-wrapper">
+              <ion-item class="item-has-focus">
+                <ion-label position="floating">Phone</ion-label>
+              </ion-item>
+              <span>{{userData.phoneNumber || 'N/A'}}</span>
+            </div>
+            <div class="input-wrapper">
+              <ion-item class="item-has-focus">
+                <ion-label position="floating">Location</ion-label>
+              </ion-item>
+              <span>{{userData.location}}</span>
+            </div>
+            <div class="input-wrapper">
+              <ion-item class="item-has-focus">
+                <ion-label position="floating">Address</ion-label>
+              </ion-item>
+              <span>{{userData.address || 'N/A'}}</span>
+            </div>
+          </ion-list>
+        </form>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+</ion-content>
+<ion-footer>
+  <ion-button expand="full" class="footer-btn" [routerLink]="['../edit-my-profile']">Edit Profile</ion-button>
+</ion-footer>

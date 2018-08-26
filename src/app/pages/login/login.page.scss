@@ -1,0 +1,99 @@
+.login-bg {
+  background: #fefefe;
+}
+
+.welcome-to-vine-txt {
+  text-align: center;
+  margin: 7vh auto 5vh;
+  color: #222;
+}
+
+.cover-image-login {
+  width: 100%;
+  overflow: hidden;
+  position: relative;
+
+  &:before {
+    content: "";
+    display: block;
+    padding-top: 56.25%;
+  }
+
+  img {
+    display: block;
+    width: 100%;
+    height: auto;
+    position: absolute;
+    top: 0;
+    left: 0;
+  }
+} // cover-image-login
+.login-btn {
+  margin-top: 17vh;
+}
+
+
+.btn-wrapper {
+  text-align: center;
+  ion-button {
+    display: block;
+    margin-bottom: 20px;
+  }
+}
+
+.fb-loginbtn {
+  text-transform: capitalize;
+  letter-spacing: 0.8px;
+  background: #4267b2;
+  width: 250px;
+  height: 55px;
+}
+
+.gmail-loginbtn {
+  text-transform: capitalize;
+  letter-spacing: 0.8px;
+  background: #d64937;
+  width: 250px;
+  height: 55px;
+}
+
+// media styles
+@media (min-height: 700px) {
+  .welcome-to-vine-txt {
+    margin: 8vh auto 5vh;
+  }
+}
+
+@media (min-height: 800px) {
+  .welcome-to-vine-txt {
+    margin: 9vh auto 5vh;
+  }
+  .login-btn {
+    margin-top: 18vh;
+  }
+}
+
+@media (min-height: 1000px) {
+  .login-btn {
+    margin-top: 17vh;
+  }
+}
+
+.error-toaster {
+  font-size: 12px;
+  padding: 15px 20px;
+  background: rgba(34, 34, 34, 0.87);
+  margin: 10px 25px;
+  line-height: 17px;
+  color: #fff;
+  opacity: 0.875;
+}
+
+.success-toaster {
+  font-size: 12px;
+  padding: 15px 20px;
+  background: rgba(28, 204, 94, 0.87);
+  margin: 10px 25px;
+  line-height: 17px;
+  color: #fff; // opacity: 0.875;
+}

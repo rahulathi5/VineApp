@@ -1,0 +1,73 @@
+<ion-header class="header-vine" *ngIf="profileData">
+  <ion-toolbar>
+    <ion-back-button defaultHref="feed" class="back-to-prev">
+      <!-- <span class="fa fa-angle-left"></span> -->
+    </ion-back-button>
+    <!-- <ion-menu-button></ion-menu-button> -->
+    <ion-title>{{profileData.name}}</ion-title>
+    <div class="user-profile-pic--header">
+      <img [src]="profileData.photoURL" alt="User Profile Image" />
+    </div>
+  </ion-toolbar>
+</ion-header>
+<ion-content class="content-bg">
+  <ion-grid no-padding *ngIf="profileData">
+    <ion-row>
+      <ion-col size="12" offset="0" size-sm="10" offset-sm="1" size-md="8" offset-md="2">
+        <ion-list class="others-profile-wrap">
+          <div class="others-profile">
+            <ion-item>
+              <ion-avatar slot="start">
+                <img [src]="profileData.photoURL" alt="Other Person Profile Image">
+              </ion-avatar>
+              <ion-label>
+                <h2>{{profileData.email}}</h2>
+                <h3>{{profileData.phoneNumber}}</h3>
+              </ion-label>
+            </ion-item>
+            <div class="others-profile-address">
+              <p class="loc">
+                <span>Location :</span> {{profileData.location}}
+              </p>
+              <p class="address">
+                <span>Address :</span> {{profileData.address}}
+              </p>
+            </div>
+          </div>
+          <!-- others-profile -->
+        </ion-list>
+      </ion-col>
+    </ion-row>
+    <ion-row xclass="make-scroll">
+      <ion-col size="12" offset="0" size-sm="10" offset-sm="1" size-md="8" offset-md="2">
+        <!--  feeds list -->
+        <ion-list class="feed-list-wrap" *ngIf="activities.length && !loadingActivity">
+          <div class="feed-list" *ngFor="let activity of activities; let i = index">
+            <div *ngIf="i<=10">
+              <ion-item>
+                <ion-avatar slot="start">
+                  <img [src]="activity.vineUserImage" alt="Profile Image" />
+                </ion-avatar>
+                <ion-label>
+                  <h3 (click)="visitProfile(activity)">{{activity.actor}}</h3>
+                  <h5>{{activity.time | date:"medium"}}</h5>
+                </ion-label>
+              </ion-item>
+              <p class="post-snippet">{{activity.object}}</p>
+            </div>
+          </div>
+        </ion-list>
+        <div class="row" *ngIf="!activities.length && !loadingActivity">
+          <div class="ion-col text-center">
+            <p>No activities available</p>
+          </div>
+        </div>
+        <!-- <ion-spinner name="dots" *ngIf="!activities.length && loadingActivity"></ion-spinner> -->
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+  <div class="text-center" *ngIf="loadingProfile">
+    <ion-spinner name="dots"></ion-spinner>
+    <div>Loading Profile..</div>
+  </div>
+</ion-content>

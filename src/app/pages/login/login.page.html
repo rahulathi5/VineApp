@@ -1,0 +1,21 @@
+<ion-content class="login-bg">
+  <ion-grid no-padding>
+    <ion-row>
+      <ion-col no-padding>
+        <!-- the below div will have the cover image of the login page -->
+        <div class="cover-image-login">
+          <img src="../../../assets/img/cover-img.png" alt="Cover Image" />
+        </div>
+        <!-- cover-image-login -->
+        <h1 class="welcome-to-vine-txt">Welcome to Vine</h1>
+        <div class="btn-wrapper text-center">
+          <ion-button class="grey-btn fb-loginbtn" (click)="signup(1)">Continue With Facebook</ion-button>
+          <ion-button class="grey-btn gmail-loginbtn" (click)="signup(2)">Continue With Gmail</ion-button>
+        </div>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+  <!-- <div class="error-toaster" *ngIf="errorMessage">
+    {{errorMessage}}
+  </div> -->
+</ion-content>

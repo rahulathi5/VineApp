@@ -1,0 +1,56 @@
+<ion-header class="header-vine">
+  <ion-toolbar>
+    <ion-menu-button></ion-menu-button>
+    <ion-title>Vine</ion-title>
+    <div class="user-profile-pic--header">
+      <img [src]="userData.photoURL" alt="User Profile Image" [routerLink]="[ '../my-profile']" />
+    </div>
+  </ion-toolbar>
+</ion-header>
+<ion-content class="content-bg">
+  <ion-grid no-padding>
+    <ion-row>
+      <ion-col size="12" offset="0" size-sm="10" offset-sm="1" size-md="8" offset-md="2">
+        <div class="post-feed-wrap">
+          <ion-input placeholder="Post Something.." name="object" [(ngModel)]="newActivity.object" #newFeed="ngModel"></ion-input>
+          <ion-button class="post-feed-btn" [disabled]="!newActivity.object.length" (click)="addActivity()">
+            Post <span class="fa fa-send"></span>
+          </ion-button>
+        </div>
+      </ion-col>
+    </ion-row>
+    <ion-row class="make-scroll">
+      <ion-col size="12" offset="0" size-sm="10" offset-sm="1" size-md="8" offset-md="2">
+        <!--  feeds list -->
+        <ion-list class="feed-list-wrap" *ngIf="activities.length && !loadingActivity">
+          <div class="feed-list" *ngFor="let activity of activities">
+            <ion-item>
+              <ion-avatar slot="start">
+                <img [src]="activity.vineUserImage" alt="Profile Image" (click)="visitProfile(activity)" />
+              </ion-avatar>
+              <ion-label>
+                <h3 (click)="visitProfile(activity)">{{activity.actor}}</h3>
+                <h5>{{activity.time | date:"medium"}}</h5>
+              </ion-label>
+              <ion-button class="post-like-btn" (click)="updateActivity(activity)">
+                <i class="fa fa-thumbs-o-up"></i>
+                <sup><span>{{activity.like}}</span></sup>
+              </ion-button>
+            </ion-item>
+            <p class="post-snippet">{{activity.object}}</p>
+          </div>
+        </ion-list>
+        <div class="row" *ngIf="!activities.length && !loadingActivity">
+          <div class="ion-col text-center">
+            <p>No activities available</p>
+          </div>
+        </div>
+        <!-- <ion-spinner name="dots"></ion-spinner> -->
+        <div class="text-center" *ngIf="!activities.length && loadingActivity">
+          <ion-spinner name="dots"></ion-spinner>
+          <div>Loading Feeds..</div>
+        </div>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+</ion-content>

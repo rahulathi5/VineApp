@@ -1,0 +1,8 @@
+{
+  "name": "VineApp",
+  "integrations": {
+    "cordova": {},
+    "capacitor": {}
+  },
+  "type": "angular"
+}

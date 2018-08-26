@@ -1,0 +1,101 @@
+<ion-header class="header-vine">
+  <ion-toolbar>
+    <ion-menu-button></ion-menu-button>
+    <ion-title>My Profile</ion-title>
+  </ion-toolbar>
+</ion-header>
+<ion-content class="content-bg">
+  <ion-grid no-padding>
+    <ion-row>
+      <ion-col no-padding>
+        <!-- the below div will contain the profile pic of the user -->
+        <div class="profile-pic-wrap">
+          <div class="img-overlay" *ngIf="userData && userData.photoURL && !updatingImage">
+            <img [src]="userData.photoURL" alt="Profile Image" />
+            <input type="file" accept="image/*" id="upload" class="file-input" (change)="changeProfilePhoto($event)">
+          </div>
+          <div class="img-overlay" *ngIf="userData && !userData.photoURL && !updatingImage">
+            <span class="fa fa-upload fa-2x" margin-top></span>
+            <input type="file" accept="image/*" id="upload" class="file-input" (change)="changeProfilePhoto($event)">
+            <p class="upload-profile-pic-txt">Upload Profile Pic</p>
+          </div>
+          <div class="img-overlay" *ngIf="userData && userData.photoURL && updatingImage">
+            <ion-spinner name="dots"></ion-spinner>
+          </div>
+        </div>
+        <!-- profile-pic-wrap -->
+      </ion-col>
+    </ion-row>
+    <ion-row>
+      <ion-col size="10" offset="1" size-sm="8" offset-sm="2" size-md="6" offset-md="3">
+        <!-- editProfileForm form -->
+        <div *ngIf="showMsg" class="update-msg">Profile updated successfully.</div>
+        <form #editProfileForm="ngForm">
+          <ion-list class="registration-form-wrap">
+            <div class="input-wrapper">
+              <ion-item [ngClass]="{'has-error': name.invalid && (name.dirty || name.touched)}">
+                <ion-label position="floating">Name</ion-label>
+                <ion-input name="name" required [(ngModel)]="userData.name" #name="ngModel" autocomplete="off"></ion-input>
+              </ion-item>
+              <div *ngIf="name.errors && (name.dirty || name.touched)" class="error-block">
+                <span *ngIf="name.errors.required && !userData.name">
+                 Name is required.
+                </span>
+              </div>
+            </div>
+            <div class="input-wrapper">
+              <ion-item [ngClass]="{'has-error': email.invalid && (email.dirty || email.touched)}">
+                <ion-label position="floating">Email</ion-label>
+                <ion-input name="email" required [(ngModel)]="userData.email" #email="ngModel" autocomplete="off" [pattern]="emailPattern"></ion-input>
+              </ion-item>
+              <div *ngIf="email.errors && (email.dirty || email.touched)" class="error-block">
+                <span *ngIf="email.errors.required && !userData.email">
+                 Email is required.
+                </span>
+              </div>
+              <div *ngIf="email.errors && (email.dirty || email.touched)" class="error-block">
+                <span *ngIf="email.errors.pattern && userData.email">
+                 Please enter a valid email.
+                </span>
+              </div>
+            </div>
+            <div class="input-wrapper">
+              <ion-item>
+                <ion-label position="floating">Phone</ion-label>
+                <ion-input type="number" name="phoneNumber" [(ngModel)]="userData.phoneNumber" #phoneNumber="ngModel" autocomplete="off"></ion-input>
+              </ion-item>
+            </div>
+            <div class="input-wrapper">
+              <ion-item [ngClass]="{'has-error': hasLocation==='no'}">
+                <ion-label position="floating">Location</ion-label>
+                <ion-select [interfaceOptions]="customPopoverOptions" interface="popover" name="location" #location="ngModel" [(ngModel)]="userData.location" (ngModelChange)="locationChange()">
+                  <!-- <ion-select-option value="" selected disabled>Select Location</ion-select-option> -->
+                  <ion-select-option value="New York">New York</ion-select-option>
+                  <ion-select-option value="California">Seattle</ion-select-option>
+                  <ion-select-option value="Chicago">Chicago</ion-select-option>
+                  <ion-select-option value="San Francisco">San Francisco</ion-select-option>
+                  <ion-select-option value="Austin">Austin</ion-select-option>
+                  <ion-select-option value="Tampa">Tampa</ion-select-option>
+                  <ion-select-option value="New Orleans">New Orleans</ion-select-option>
+                  <ion-select-option value="Others">Others</ion-select-option>
+                </ion-select>
+              </ion-item>
+              <div class="error-block">
+                <span *ngIf="hasLocation==='no'">
+                 Location is required.
+                </span>
+              </div>
+            </div>
+            <ion-item>
+              <ion-label position="floating">Address</ion-label>
+              <ion-textarea rows="5" name="address" #address="ngModel" [(ngModel)]="userData.address"></ion-textarea>
+            </ion-item>
+          </ion-list>
+        </form>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+</ion-content>
+<ion-footer>
+  <ion-button expand="full" class="footer-btn" (click)="updateProfile(editProfileForm)">Update Profile</ion-button>
+</ion-footer>

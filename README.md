@@ -1,2 +1,2 @@
-# VineApp
-A prototype for a social media app.
+# vine-prototype
+
